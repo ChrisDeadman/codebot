@@ -15,7 +15,7 @@ RUN apt update && \
 # install python packages
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt && \
-    pip install --no-cache-dir beautifulsoup4 matplotlib numpy pandas openai requests wikipedia && \
+    pip install --no-cache-dir beautifulsoup4 imageio matplotlib numpy pandas openai requests wikipedia && \
     rm -rf /tmp/*
 
 COPY app.py ./

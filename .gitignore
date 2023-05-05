@@ -17,3 +17,4 @@ venv/
 
 data/*
 !data/initial_prompt.txt
+!data/matrix.gif

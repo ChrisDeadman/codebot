@@ -62,11 +62,75 @@ print("Hello, World!")
 
 `Output: Hello, World!`
 
+### Create Matrix GIF
+
+**You: Make a 512x512 gif with falling green Matrix letters. Assume no fonts. 90 frames 5fps. No talk, just go.**
+
+_Alright, here's the code to generate a 512x512 gif with falling green matrix letters. We'll be using the Python Imaging Library (PIL) to generate the gif frames. To install it, run the command `!pip3 install pillow` in the terminal if it's not installed._
+
+_This code will generate a gif with 90 frames at 5fps. You can adjust the variables at the beginning of the code to change the parameters of the gif, such as the background color, the font size, and the characters used for the falling letters._
+
+```
+import random
+
+from PIL import Image, ImageDraw
+
+# Set up variables
+width = 512
+height = 512
+fps = 5
+frames = 90
+background = (0, 0, 0)
+falling_letters = []
+letter_size = 10
+
+# Generate unicode matrix letters
+matrix_letters = [chr(x) for x in range(256) if chr(x) not in ['ヽ', 'ヾ', 'オ']]
+
+# Generate initial positions for the letters
+for i in range(100):
+    x = random.randint(0, width-10)
+    y = random.randint(-height, 0)
+    letter = random.choice(matrix_letters)
+    falling_letters.append({"x": x, "y": y, "letter": letter})
+
+# Generate frames
+images = []
+for i in range(frames):
+    # Create image
+    image = Image.new('RGB', (width, height), background)
+    draw = ImageDraw.Draw(image)
+    
+    # Draw falling letters
+    for letter in falling_letters:
+        # Update y position
+        letter["y"] += letter_size
+        # Draw letter
+        draw.text((letter["x"], letter["y"]), letter["letter"], fill=(0, 255, 0))
+        
+        # Reset letter if it has fallen off the screen
+        if letter["y"] > height:
+            letter["y"] = random.randint(-height, 0)
+            letter["x"] = random.randint(0, width-10)
+            letter["letter"] = random.choice(matrix_letters)
+    
+    # Add image to list of frames
+    images.append(image)
+    
+# Save gif
+images[0].save('matrix.gif', save_all=True, append_images=images[1:], duration=200, loop=0)
+print('saved to matrix.gif')
+```
+
+`Output: saved to matrix.gif`
+
+![matrix](data/matrix.gif)
+
 ### OpenAI Completion
 
 **You: Please start a conversation with openai and print the response. Read the API key from `openai_api_key.txt`.**
 
-_Sure, I can help you with that. To read the API key from `openai_api_key.txt`, I need to check if the file exists and then read the contents from it. Here's the code:_
+_Sure, I can help you with that. To read the API key from `openai_api_key.txt`, I need to read the contents from it. Here's the code:_
 
 ```
 import os
