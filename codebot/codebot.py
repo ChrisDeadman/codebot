@@ -80,9 +80,8 @@ class Codebot:
                 if not in_code_block:
                     ignore_code_block = False
             else:
-                if line.strip():
-                    is_code = in_code_block and not ignore_code_block
-                    result.append({"code": is_code, "content": line})
+                is_code = in_code_block and not ignore_code_block
+                result.append({"code": is_code, "content": line})
         return result
 
     def execute_code(self, code: str):
@@ -124,9 +123,9 @@ class Codebot:
 
         for r in gpt_response_parsed:
             if r["code"]:
-                print(f"{COLOR_GREEN}{r['content']}{COLOR_RESET}\n")
+                print(f"{COLOR_GREEN}{r['content']}{COLOR_RESET}")
             else:
-                print(f"{COLOR_GRAY}{r['content']}{COLOR_RESET}\n")
+                print(f"{COLOR_GRAY}{r['content']}{COLOR_RESET}")
 
         if gpt_code.strip():
             result = self.execute_code(gpt_code)
